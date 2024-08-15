@@ -34,7 +34,7 @@ export default function CreateStudio() {
 
       alert(`Studio created successfully! Your join code is: ${joinCode}`)
       // Redirect to dashboard after successful studio creation
-      navigate('/dashboard')
+      navigate('/admin-dashboard')
     } catch (error) {
       alert(error.error_description || error.message)
     } finally {
