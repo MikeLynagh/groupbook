@@ -16,9 +16,10 @@ export default function CreateStudio() {
     e.preventDefault()
     setLoading(true)
     try {
-      const user = supabase.auth.getUser()
-      const joinCode = generateJoinCode()
+      const { data: { user }, error: userError } = await supabase.auth.getUser()
+      if (userError) throw userError
 
+      const joinCode = generateJoinCode()
       const { data, error } = await supabase
         .from('studios')
         .insert([
@@ -33,10 +34,10 @@ export default function CreateStudio() {
       if (error) throw error
 
       alert(`Studio created successfully! Your join code is: ${joinCode}`)
-      // Redirect to dashboard after successful studio creation
       navigate('/admin-dashboard')
     } catch (error) {
-      alert(error.error_description || error.message)
+      console.error('Error creating studio:', error)
+      alert(error.message)
     } finally {
       setLoading(false)
     }

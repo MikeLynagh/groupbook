@@ -21,17 +21,33 @@ export default function Dashboard() {
       const { data: { user }, error: userError } = await supabase.auth.getUser()
       if (userError) throw userError
 
+      console.log("Current user:", user)
+
       let { data, error } = await supabase
         .from('studios')
         .select('*')
         .eq('admin_id', user.id)
         .single()
 
-      if (error && error.code !== 'PGRST116') throw error
+      if (error){
+        console.error("Error fetching studios: ", error)
+        if (error.code === "PGRST116"){
+          console.log("No studio found for this user")
+          navigate("/create-studio")
+          return
+        }
+        throw error
+      }
+
+      console.log("Fetched studio data: ", data)
+
 
       if (data) {
         setStudio(data)
         fetchBookings(data.id)
+      } else {
+        console.log("No studio data, redirecting to create studio page ")
+        navigate("/create-studio")
       }
     } catch (error) {
       console.error('Error fetching studio:', error)
