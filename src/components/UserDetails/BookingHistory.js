@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../../supabaseClient';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import StyledComponents from '../StyledComponents';
+
 
 export default function BookingHistory() {
   const [bookings, setBookings] = useState([]);
@@ -83,7 +85,7 @@ export default function BookingHistory() {
             <li key={booking.id}>
               {booking.classes.title} at {booking.classes.studios.name} - 
               {moment(`${booking.classes.date}T${booking.classes.time}`).format('MMMM D, YYYY, h:mm A')}
-              <button onClick={() => cancelBooking(booking.id)}>Cancel</button>
+              <StyledComponents.SmallButton onClick={() => cancelBooking(booking.id)}>Cancel</StyledComponents.SmallButton>
             </li>
           ))}
         </ul>

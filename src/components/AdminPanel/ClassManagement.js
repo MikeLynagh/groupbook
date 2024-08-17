@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { supabase } from '../../supabaseClient'
+import StyledComponents from '../StyledComponents'
 
 export default function ClassManagement({ studioId }) {
   const [classes, setClasses] = useState([])
@@ -89,7 +90,7 @@ export default function ClassManagement({ studioId }) {
           value={newClass.maxSlots}
           onChange={(e) => setNewClass({ ...newClass, maxSlots: parseInt(e.target.value) })}
         />
-        <button onClick={addClass}>Add Class</button>
+        <StyledComponents.SmallButton onClick={addClass}>Add Class</StyledComponents.SmallButton>
       </div>
 
       <h3>Upcoming Classes</h3>
@@ -98,7 +99,7 @@ export default function ClassManagement({ studioId }) {
           <li key={cls.id}>
             {cls.title} - {cls.date} at {cls.time}
             (Slots: {cls.bookedSlots}/{cls.maxSlots})
-            <button onClick={() => deleteClass(cls.id)}>Delete</button>
+            <StyledComponents.SmallButton onClick={() => deleteClass(cls.id)}>Delete</StyledComponents.SmallButton>
           </li>
         ))}
       </ul>

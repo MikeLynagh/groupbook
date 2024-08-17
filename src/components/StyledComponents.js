@@ -24,6 +24,43 @@ const PrimaryButton = styled.button`
   }
 `;
 
+export const SmallButton = styled.button`
+background-color: white;
+color: #4c51bf;
+padding: 0.25rem 0.5rem;
+border-radius:4px;
+font-weight: bold;
+text-align:center;
+transition: all 0.3s ease;
+border- 2px solid #4c51bf;
+cursor: pointer;
+font-size: 0.75rem;
+
+&:hover {
+  background-color: #f0f0f0;
+}
+
+&:disabled {
+  color: #a0aec0;
+  border-color: #a0aec0;
+  cursor: not-allowed;
+}
+`
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 300px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    max-width: none;
+    justify-content: center;
+  }
+`;
+
+
 const PrimaryButtonLink = styled(Link)`
   display: inline-block;
   background-color: #4c51bf;
@@ -44,6 +81,8 @@ const PrimaryButtonLink = styled(Link)`
 const StyledComponents = {
     PrimaryButton,
     PrimaryButtonLink,
+    SmallButton,
+    ButtonContainer,
 }
 
 export default StyledComponents

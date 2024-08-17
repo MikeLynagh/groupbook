@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
+import StyledComponents from '../StyledComponents';
 
 export default function JoinCodeEntry() {
   const [joinCode, setJoinCode] = useState('');
@@ -43,7 +44,7 @@ export default function JoinCodeEntry() {
           placeholder="Enter join code"
           required
         />
-        <button type="submit">Enter Studio</button>
+        <StyledComponents.SmallButton type="submit">Enter Studio</StyledComponents.SmallButton>
       </form>
       {error && <p style={{color: "red"}}>{error}</p>}
     </div>

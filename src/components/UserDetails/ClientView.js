@@ -4,6 +4,7 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { supabase } from '../../supabaseClient';
 import { useParams, Link } from 'react-router-dom';
+import StyledComponents from '../StyledComponents';
 
 const localizer = momentLocalizer(moment);
 
@@ -127,7 +128,7 @@ export default function ClientView() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <button type="submit">Book This Class</button>
+            <StyledComponents.SmallButton type="submit">Book This Class</StyledComponents.SmallButton>
           </form>
           <Link to="/client-booking-history">View Your Booking History</Link>
         </div>

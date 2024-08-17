@@ -4,6 +4,8 @@ import { supabase } from '../../supabaseClient'
 import StudioManagement from './StudioManagement'
 import ClassManagement from './ClassManagement'
 import StudioCalendar from '../Calendar/StudioCalendar'
+import StyledComponents from '../StyledComponents'
+import styled from "styled-components";
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true)
@@ -141,11 +143,15 @@ export default function Dashboard() {
     <div>
       <h1>Studio Dashboard</h1>
       <nav>
-        <button onClick={() => setView('calendar')}>Calendar View</button>
-        <button onClick={() => setView('management')}>Studio Management</button>
-        <button onClick={() => setView('classes')}>Class Management</button>
-        <button onClick={() => setView("bookings")}>View Bookings</button>
-        <button onClick={handleLogout} style={{ float: "right"}}>Logout</button>
+        {/* <StyledComponents.PrimaryButton>Button</StyledComponents.PrimaryButton> */}
+        <StyledComponents.ButtonContainer>
+
+        <StyledComponents.PrimaryButton onClick={() => setView('calendar')}>Calendar View</StyledComponents.PrimaryButton>
+        <StyledComponents.PrimaryButton onClick={() => setView('management')}>Studio Management</StyledComponents.PrimaryButton>
+        <StyledComponents.PrimaryButton onClick={() => setView('classes')}>Class Management</StyledComponents.PrimaryButton>
+        <StyledComponents.PrimaryButton onClick={() => setView("bookings")}>View Bookings</StyledComponents.PrimaryButton>
+        <StyledComponents.SmallButton onClick={handleLogout} style={{ float: "right"}}>Logout</StyledComponents.SmallButton>
+        </StyledComponents.ButtonContainer>
       </nav>
       {view === 'calendar' && <StudioCalendar studioId={studio.id} />}
       {view === 'management' && <StudioManagement studio={studio} onUpdate={getStudio} />}
@@ -168,7 +174,7 @@ export default function Dashboard() {
             ) : (
               <span>Class details not available</span>
             )}
-            <button onClick={() => cancelBooking(booking.id)}>Cancel</button>
+            <StyledComponents.SmallButton onClick={() => cancelBooking(booking.id)}>Cancel</StyledComponents.SmallButton>
           </li>
         ))}
       </ul>
@@ -223,9 +229,9 @@ function CreateStudio({ onStudioCreated }) {
           onChange={(e) => setStudioName(e.target.value)}
           required
         />
-        <button type="submit" disabled={loading}>
+        <StyledComponents.SmallButton type="submit" disabled={loading}>
           {loading ? 'Creating...' : 'Create Studio'}
-        </button>
+        </StyledComponents.SmallButton>
       </form>
     </div>
   )

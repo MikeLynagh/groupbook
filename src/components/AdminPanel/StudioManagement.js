@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { supabase } from '../../supabaseClient'
+import StyledComponents from '../StyledComponents'
 
 export default function StudioManagement({ studio, onUpdate }) {
   const [editing, setEditing] = useState(false)
@@ -33,14 +34,14 @@ export default function StudioManagement({ studio, onUpdate }) {
             value={studioName}
             onChange={(e) => setStudioName(e.target.value)}
           />
-          <button onClick={handleUpdate}>Save</button>
-          <button onClick={() => setEditing(false)}>Cancel</button>
+          <StyledComponents.SmallButton onClick={handleUpdate}>Save</StyledComponents.SmallButton>
+          <StyledComponents.SmallButton onClick={() => setEditing(false)}>Cancel</StyledComponents.SmallButton>
         </div>
       ) : (
         <div>
           <p>Studio Name: {studio.name}</p>
           <p>Join Code: {studio.join_code}</p>
-          <button onClick={() => setEditing(true)}>Edit</button>
+          <StyledComponents.SmallButton onClick={() => setEditing(true)}>Edit</StyledComponents.SmallButton>
         </div>
       )}
     </div>
