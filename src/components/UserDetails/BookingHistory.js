@@ -9,6 +9,7 @@ export default function BookingHistory() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const studioId = localStorage.getItem("clientStudioId")
 
   useEffect(() => {
     fetchBookings();
