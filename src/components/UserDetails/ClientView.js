@@ -82,7 +82,9 @@ export default function ClientView() {
 
       if (data){
         localStorage.setItem("clientEmail", email)
-        alert('Class booked successfully!');
+        localStorage.setItem("clientStudioId", studioId)
+        alert(`Booking Confirmed!\n\nClass: ${selectedClass.tite}\nDate: ${moment(selectedClass.start).format("MMMM D, YYYY")}\nTime: ${moment(selectedClass.start).format("h:mm A")}\n\nThank you for booking!`)
+
         fetchClasses(); // Refresh the classes
         setSelectedClass(null);
         setName('');

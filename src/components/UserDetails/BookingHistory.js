@@ -10,6 +10,7 @@ export default function BookingHistory() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const email = localStorage.getItem("clientEmail");
+  const studioId = localStorage.getItem("clientStudioId")
 
   useEffect(() => {
     fetchBookings();
@@ -90,7 +91,7 @@ export default function BookingHistory() {
           ))}
         </ul>
       )}
-      <Link to="/">Back to Calendar</Link>
+      <Link to={`/client-view/${studioId}`}>Back to Calendar</Link>
     </div>
   );
 }
