@@ -78,18 +78,17 @@ export default function ClientView() {
 
       if (updateError) throw updateError;
 
-      
-
-      if (data){
+      // store email and studio id
         localStorage.setItem("clientEmail", email)
         localStorage.setItem("clientStudioId", studioId)
-        alert(`Booking Confirmed!\n\nClass: ${selectedClass.tite}\nDate: ${moment(selectedClass.start).format("MMMM D, YYYY")}\nTime: ${moment(selectedClass.start).format("h:mm A")}\n\nThank you for booking!`)
+        alert(`Booking Confirmed!\n\nClass: ${selectedClass.title}\nDate: ${moment(selectedClass.start).format("MMMM D, YYYY")}\nTime: ${moment(selectedClass.start).format("h:mm A")}\n\nThank you for booking!`);
+
 
         fetchClasses(); // Refresh the classes
         setSelectedClass(null);
         setName('');
         setEmail('');
-      }
+
 
     } catch (error) {
       alert('Error booking class: ' + error.message);

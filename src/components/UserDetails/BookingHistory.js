@@ -9,8 +9,6 @@ export default function BookingHistory() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const email = localStorage.getItem("clientEmail");
-  const studioId = localStorage.getItem("clientStudioId")
 
   useEffect(() => {
     fetchBookings();
@@ -19,6 +17,7 @@ export default function BookingHistory() {
   async function fetchBookings() {
     setLoading(true);
     setError(null);
+    const email = localStorage.getItem("clientEmail")
 
     if (!email) {
       console.log("No email found in localStorage");
