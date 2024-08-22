@@ -44,7 +44,7 @@ export default function JoinCodeEntry() {
           placeholder="Enter join code"
           required
         />
-        <StyledComponents.SmallButton type="submit">Enter Studio</StyledComponents.SmallButton>
+        <StyledComponents.SmallButton as="button" type="submit">Enter Studio</StyledComponents.SmallButton>
       </form>
       {error && <p style={{color: "red"}}>{error}</p>}
     </div>

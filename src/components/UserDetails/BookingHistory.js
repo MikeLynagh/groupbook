@@ -86,7 +86,7 @@ export default function BookingHistory() {
             <li key={booking.id}>
               {booking.classes.title} at {booking.classes.studios.name} - 
               {moment(`${booking.classes.date}T${booking.classes.time}`).format('MMMM D, YYYY, h:mm A')}
-              <StyledComponents.SmallButton onClick={() => cancelBooking(booking.id)}>Cancel</StyledComponents.SmallButton>
+              <StyledComponents.SmallButton as="button" onClick={() => cancelBooking(booking.id)}>Cancel</StyledComponents.SmallButton>
             </li>
           ))}
         </ul>

@@ -67,11 +67,12 @@ export default function Dashboard() {
         .from("bookings")
         .select(`
           *,
-          classes (
+          classes!inner (
             id,
             title,
             date,
-            time
+            time,
+            studio_id
           )
         `)
         .eq("classes.studio_id", studioId);
@@ -174,7 +175,7 @@ export default function Dashboard() {
             ) : (
               <span>Class details not available</span>
             )}
-            <StyledComponents.SmallButton onClick={() => cancelBooking(booking.id)}>Cancel</StyledComponents.SmallButton>
+            <StyledComponents.SmallButton as="button" onClick={() => cancelBooking(booking.id)}>Cancel</StyledComponents.SmallButton>
           </li>
         ))}
       </ul>

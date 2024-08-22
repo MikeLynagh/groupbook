@@ -107,6 +107,11 @@ export default function ClientView() {
           onSelectEvent={handleSelectEvent}
           style={{ height: '100%' }}
         />
+        <div>
+        <Link to="/client-booking-history">View Your Booking History</Link>
+
+        </div>
+
       </div>
       {selectedClass && (
         <div>
@@ -129,9 +134,8 @@ export default function ClientView() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <StyledComponents.SmallButton type="submit">Book This Class</StyledComponents.SmallButton>
+            <StyledComponents.SmallButton as="button" type="submit">Book This Class</StyledComponents.SmallButton>
           </form>
-          <Link to="/client-booking-history">View Your Booking History</Link>
         </div>
       )}
     </div>

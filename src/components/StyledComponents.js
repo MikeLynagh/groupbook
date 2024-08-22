@@ -1,6 +1,19 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+const Button = styled(Link)`
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    transform: translate(-2px);
+  }
+`;
+
 const PrimaryButton = styled.button`
   background-color: #4c51bf;
   color: white;
@@ -24,7 +37,7 @@ const PrimaryButton = styled.button`
   }
 `;
 
-export const SmallButton = styled.button`
+export const SmallButton = styled(Button)`
 background-color: white;
 color: #4c51bf;
 padding: 0.25rem 0.5rem;
@@ -32,7 +45,7 @@ border-radius:4px;
 font-weight: bold;
 text-align:center;
 transition: all 0.3s ease;
-border- 2px solid #4c51bf;
+border: 2px solid #4c51bf;
 cursor: pointer;
 font-size: 0.75rem;
 
