@@ -10,7 +10,7 @@ const localizer = momentLocalizer(moment);
 
 export default function ClientView() {
   const [classes, setClasses] = useState([]);
-  const [selectedClass, setSelectedClass] = useState(null);
+  const [selectedClasses, setSelectedClasses] = useState([]);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const { studioId } = useParams();
@@ -19,7 +19,6 @@ export default function ClientView() {
   useEffect(() => {
     fetchClasses();
   }, [studioId]);
-
 
 
   async function fetchClasses() {
@@ -41,19 +40,27 @@ export default function ClientView() {
   }
 
   const handleSelectEvent = (event) => {
-    setSelectedClass(event);
+    setSelectedClasses(prev => {
+      const isAlreadySelected = prev.some(cls => cls.id === event.id)
+      if (isAlreadySelected){
+        return prev.filter(cls => cls.id !== event.id)
+      } else {
+        return [...prev, event]
+      }
+    })
   };
   
 
   const handleBookClass = async (e) => {
     e.preventDefault();
-    if (!selectedClass) return;
+    if (selectedClasses.length === 0) return;
 
     try {
+      for (const selectedClass of selectedClasses){
       // Check if the class is full
       if (selectedClass.bookedSlots >= selectedClass.maxSlots) {
-        alert('Sorry, this class is full.');
-        return;
+        alert(`Sorry, the class "${selectedClass.title}" is full.`);
+        continue;
       }
 
       // Add booking to the bookings table
@@ -68,29 +75,29 @@ export default function ClientView() {
         ]);
 
       if (error) throw error;
-      
 
-      // Update the class's bookedSlots
-      const { error: updateError } = await supabase
+      // update the class bookedSlots
+      await supabase
         .from('classes')
         .update({ bookedSlots: selectedClass.bookedSlots + 1 })
         .eq('id', selectedClass.id);
 
-      if (updateError) throw updateError;
+      }
 
       // store email and studio id
         localStorage.setItem("clientEmail", email)
         localStorage.setItem("clientStudioId", studioId)
-        alert(`Booking Confirmed!\n\nClass: ${selectedClass.title}\nDate: ${moment(selectedClass.start).format("MMMM D, YYYY")}\nTime: ${moment(selectedClass.start).format("h:mm A")}\n\nThank you for booking!`);
+        alert(`Booking Confirmed!\n\nYou have booked ${selectedClasses.length} classes.\nThank you for booking!`);
 
 
         fetchClasses(); // Refresh the classes
-        setSelectedClass(null);
+        setSelectedClasses([]);
         setName('');
         setEmail('');
 
 
     } catch (error) {
+      console.error("Error booking classes:", error)
       alert('Error booking class: ' + error.message);
     }
   };
@@ -106,39 +113,49 @@ export default function ClientView() {
           endAccessor="end"
           onSelectEvent={handleSelectEvent}
           style={{ height: '100%' }}
+          eventPropGetter={(event) => ({
+            style: {
+              backgroundColor: selectedClasses.some(cls => cls.id === event.id) ? "#4c51bf" : "#3174ad",
+            },
+          })}
         />
-        <div>
+        </div>
+        {
+          selectedClasses.length > 0 && (
+            <div>
+              <h3>Selected Classes </h3>
+              <ul>
+                {selectedClasses.map(cls => (
+                  <li key={cls.id}>
+                    {cls.title} - {moment(cls.start).format("MMMM D, YYYY, h:mm A")}
+                    <StyledComponents.SmallButton onClick={() => handleSelectEvent(cls)}>Remove</StyledComponents.SmallButton>
+                  </li>
+                ))}
+              </ul>
+              <form onSubmit={handleBookClass}>
+                <input 
+                type='text'
+                placeholder='Your Name'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                />
+                <input 
+                type='email'
+                placeholder='Your Email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                /> 
+                <StyledComponents.SmallButton as="button" type="submit">Book Selected Classes</StyledComponents.SmallButton>
+              </form>
+              </div>
+          )
+        }
         <Link to="/client-booking-history">View Your Booking History</Link>
 
         </div>
+        )
+      }
 
-      </div>
-      {selectedClass && (
-        <div>
-          <h3>Book Class: {selectedClass.title}</h3>
-          <p>Date: {moment(selectedClass.start).format('MMMM D, YYYY')}</p>
-          <p>Time: {moment(selectedClass.start).format('h:mm A')}</p>
-          <p>Available Slots: {selectedClass.maxSlots - selectedClass.bookedSlots}</p>
-          <form onSubmit={handleBookClass}>
-            <input
-              type="text"
-              placeholder="Your Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-            <input
-              type="email"
-              placeholder="Your Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <StyledComponents.SmallButton as="button" type="submit">Book This Class</StyledComponents.SmallButton>
-          </form>
-        </div>
-      )}
-    </div>
-  );
-}
-
+  
