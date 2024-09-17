@@ -59,6 +59,9 @@ const Title = styled.h2`
   @media (min-width: 768px) {
     font-size: 3.5rem;
   }
+  @media (max-width: 480px){
+    font-size: 1.75rem;
+  }
 `;
 
 const Subtitle = styled.p`
@@ -67,6 +70,9 @@ const Subtitle = styled.p`
   margin-bottom: 2rem;
   @media (min-width: 768px) {
     font-size: 1.5rem;
+  }
+  @media (max-width: 480px){
+    font-size: 1.75rem;
   }
 `;
 
