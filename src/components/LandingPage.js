@@ -50,6 +50,12 @@ const Main = styled.main`
 const HeroSection = styled.section`
   text-align: center;
   margin-bottom: 3rem;
+  width: 100%;
+  max-width: 800px;
+  padding: 0 1rem;
+  @media (max-width: 768px){
+    max-width: 95%
+  }
 `;
 
 const Title = styled.h2`
@@ -60,7 +66,7 @@ const Title = styled.h2`
     font-size: 3.5rem;
   }
   @media (max-width: 480px){
-    font-size: 1.75rem;
+    font-size: 1.4rem;
   }
 `;
 
@@ -72,7 +78,7 @@ const Subtitle = styled.p`
     font-size: 1.5rem;
   }
   @media (max-width: 480px){
-    font-size: 1.75rem;
+    font-size: 1.4rem;
   }
 `;
 
